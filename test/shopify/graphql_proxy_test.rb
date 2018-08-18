@@ -6,6 +6,13 @@ class Shopify::GraphQLProxyTest < Minitest::Test
     @middleware = Shopify::GraphQLProxy.new(@app)
   end
 
+  def test_env_is_not_rewritten_when_request_path_is_not_graphql
+    response = Rack::MockRequest.new(@middleware).get("/graphql")
+
+    assert_equal 200, response.status
+    assert_equal "All responses are OK", response.body
+  end
+
   def test_env_is_not_rewritten_when_request_method_is_not_post
     response = Rack::MockRequest.new(@middleware).get("/graphql")
 
