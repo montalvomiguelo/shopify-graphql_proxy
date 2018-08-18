@@ -8,12 +8,10 @@ module Shopify
 
     def perform_request(env)
       request = Rack::Request.new(env)
+      path_info = request.path_info
+      request_method = request.request_method
 
-      if request.path_info =~ %r{^#{PROXY_BASE_PATH}}
-        unless request.request_method == "POST"
-          return @app.call(env)
-        end
-
+      if path_info =~ %r{^#{PROXY_BASE_PATH}} && request_method == "POST"
         unless request.session.key?(:shopify)
           return ["403", {"Content-Type" => "text/plain"}, ["Unauthorized"]]
         end
