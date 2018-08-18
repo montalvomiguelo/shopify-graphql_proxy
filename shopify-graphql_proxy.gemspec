@@ -1,10 +1,11 @@
 # coding: utf-8
 lib = File.expand_path("../lib", __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
+require 'shopify/graphql_proxy'
 
 Gem::Specification.new do |spec|
   spec.name          = "shopify-graphql_proxy"
-  spec.version       = "0.1.0"
+  spec.version       = Shopify::GraphQLProxy::VERSION
   spec.authors       = ["montalvomiguelo"]
   spec.email         = ["me@montalvomiguelo.com"]
 
